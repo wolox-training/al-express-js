@@ -20,7 +20,7 @@
     "start-dev": "nodemon --inspect server.js",
     "prestart-dev": "npm run lint",
     "migrations": "sequelize db:migrate",
-    "migrations-test": "sequelize db:migrate:test",
+    "migrations-test": "sequelize db:migrate",
     "start": "node server.js",
     "seed": "sequelize db:seed:all",
     "create-seed": "sequelize seed:generate --name"
