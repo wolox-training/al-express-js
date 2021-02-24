@@ -1,7 +1,4 @@
-const { isUndefined } = require('lodash');
-
-exports.internalError = (message, internalCode, statusCode = undefined) => ({
+exports.internalError = (message, internalCode) => ({
   message,
-  internalCode,
-  statusCode: isUndefined(statusCode) ? undefined : statusCode
+  internalCode
 });

@@ -1,5 +1,8 @@
 const internalError = require('../helpers/error');
 
+const AXIOS_ERROR = 'axios_error';
+
 module.exports = {
-  axiosError: (message, statusText, statusCode) => internalError(message, statusText, statusCode)
+  AXIOS_ERROR,
+  axiosError: message => internalError(message, AXIOS_ERROR)
 };
