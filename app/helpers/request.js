@@ -1,9 +1,9 @@
 const axios = require('axios');
 const { errors } = require('../errors');
 
-const buildRequest = ({ url, path = '', method, headers, data, params }) => ({
+const buildRequest = ({ baseUrl, path = '', method, headers, data, params }) => ({
   method,
-  url: `${url}${path}`,
+  url: `${baseUrl}${path}`,
   headers,
   data,
   params
