@@ -13,7 +13,6 @@ module.exports = options =>
   axios(buildRequest(options))
     .then(info => info.data)
     .catch(error => {
-      const { statusText } = error.response;
       const message = error.response.data.error;
-      throw errors.axiosError(message, statusText);
+      throw errors.axiosError(message);
     });

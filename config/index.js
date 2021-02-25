@@ -45,6 +45,9 @@ const config = {
       packageVersion: process.env.PACKAGE_VERSION || 'X-Package-Version',
       nodeVersion: process.env.NODE_VERSION || 'X-Node-Version'
     }
+  },
+  jsonPlaceHolderApi: {
+    baseUrl: process.env.JSON_PLACE_HOLDER_API_BASE_URL
   }
 };
 
