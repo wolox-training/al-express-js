@@ -1,7 +1,7 @@
 const request = require('../helpers/request');
 const logger = require('../logger');
 const config = require('../../config');
-const { albumsSerializer, photosSerializer } = require('../serializers/album');
+const { albumsSerializer, photosSerializer } = require('../serializers/albums');
 
 const JPH_API_BASE_URL = config.jsonPlaceHolderApi.baseUrl;
 
