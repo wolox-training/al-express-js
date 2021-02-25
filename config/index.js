@@ -47,7 +47,7 @@ const config = {
     }
   },
   jsonPlaceHolderApi: {
-    baseUrl: process.env.JSON_PLACE_HOLDER_API_PATH
+    baseUrl: process.env.JSON_PLACE_HOLDER_API_BASE_URL
   }
 };
 
