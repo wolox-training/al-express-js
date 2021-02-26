@@ -1,4 +1,4 @@
-const internalError = require('../helpers/error');
+const { internalError } = require('../helpers/error');
 
 const AXIOS_ERROR = 'axios_error';
 
