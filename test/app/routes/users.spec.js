@@ -12,7 +12,7 @@ const {
 
 describe('Users Routes', () => {
   const apiPath = '/users';
-  describe('POST /sign_up', () => {
+  describe('POST /users (Sign Up)', () => {
     const signUpPath = apiPath;
 
     it('should be successfully', async () => {
