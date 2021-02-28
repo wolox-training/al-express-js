@@ -5,6 +5,6 @@ const { signUpSchema } = require('../utils/schemas/users');
 
 const router = new Router();
 
-router.post('/sign_up', [validateSchema(signUpSchema)], usersController.signUp);
+router.post('', [validateSchema(signUpSchema)], usersController.signUp);
 
 module.exports = router;
