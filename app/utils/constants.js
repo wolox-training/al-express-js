@@ -18,5 +18,3 @@ exports.ALPHANUMERICAL_REGEX = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
 exports.EMAIL_WOLOX_REGEX = new RegExp(
   `^[A-Za-z0-9._%+-]+(${exports.EMAIL_WOLOX_AR}|${exports.EMAIL_WOLOX_CO}|${exports.EMAIL_WOLOX_CL}|${exports.EMAIL_WOLOX_MX})$`
 );
-
-console.log('EMAIL_WOLOX_REGEX ', exports.EMAIL_WOLOX_REGEX);
