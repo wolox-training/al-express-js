@@ -1,10 +1,9 @@
 const request = require('../helpers/request');
 const logger = require('../logger');
 const config = require('../../config');
-const { albumsSerializer } = require('../serializers/album');
-const { albumPhotosSerializer } = require('../serializers/albumPhoto');
+const { albumsSerializer, photosSerializer } = require('../serializers/albums');
 
-const JPH_API_BASE_URL = config.jsonPlaceHolderApi.baseUrl;
+const JPH_API_BASE_URL = config.common.jsonPlaceHolderApi.baseUrl;
 
 exports.getAlbums = () => {
   logger.info('Requesting albums to JsonPlaceHolder API...');
@@ -23,5 +22,5 @@ exports.getPhotos = () => {
     baseUrl: JPH_API_BASE_URL,
     method: 'GET',
     path: '/photos'
-  }).then(albumPhotosSerializer);
+  }).then(photosSerializer);
 };

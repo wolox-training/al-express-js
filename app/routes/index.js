@@ -3,5 +3,5 @@ const jsonPlaceHolderRoutes = require('./jsonPlaceHolder');
 
 exports.init = app => {
   app.use('/health', healthCheckRoutes);
-  app.use('/json-place-holder', jsonPlaceHolderRoutes);
+  app.use('/albums', jsonPlaceHolderRoutes);
 };
