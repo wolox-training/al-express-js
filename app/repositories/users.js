@@ -22,7 +22,9 @@ class UserRepository {
 
   async save(user) {
     try {
-      return await this.User.create(user);
+      const newUser = await this.User.create(user);
+      delete newUser.dataValues.password;
+      return newUser.toJSON();
     } catch (error) {
       logger.error('Error when was trying to create a new user: ', error.message);
       throw errors.databaseError('Unknown when was trying to create the user');
