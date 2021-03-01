@@ -4,11 +4,12 @@ const db = require('../models');
 const logger = require('../logger');
 
 const queryBuilder = (attributes, searchOp = 'and') => {
-  const { Op } = db;
+  const { Op } = db.Sequelize;
   const attributesToFilter = {};
   forIn(attributes, (value, key) => {
     if (isUndefined(value)) return;
     if (isEqual(key, 'id')) attributesToFilter[key] = { [Op.eq]: value };
+    else attributesToFilter[key] = value;
   });
   if (!isEmpty(attributesToFilter)) return { [Op[searchOp]]: attributesToFilter };
   return attributesToFilter;
