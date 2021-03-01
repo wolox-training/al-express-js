@@ -2,12 +2,12 @@ const { omit } = require('lodash');
 const { factoryByModel } = require('../../factory/factory_by_models');
 const { userMock } = require('../../mocks/users');
 const userService = require('../../../app/services/users');
-const UserRepository = require('../../../app/repositories/users');
 const errors = require('../../../app/errors');
 
 describe('Users Service', () => {
+  let factory = null;
   beforeAll(() => {
-    factoryByModel('users');
+    factory = factoryByModel('users');
   });
 
   it('should sign up an user successfully', async () => {
@@ -24,8 +24,8 @@ describe('Users Service', () => {
   });
 
   it('should fail when is signing up an user with an existing email', async () => {
-    const errorResponse = errors.databaseError('email already exists');
-    UserRepository.prototype.existBy = jest.fn().mockRejectedValueOnce(errorResponse);
+    const errorResponse = errors.schemaError('email already exists');
+    factory.Model.count = jest.fn().mockResolvedValueOnce(1);
     try {
       await userService.signUp(userMock);
     } catch (error) {

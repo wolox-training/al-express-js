@@ -34,6 +34,9 @@ class UserRepository {
     if (errIfExists && exists) {
       const messageAttributes = Object.keys(attributes).join(', or ');
       logger.error(`${messageAttributes} already exist`);
+      if (Object.keys(attributes).length === 1) {
+        throw errors.schemaError(`${messageAttributes} already exists`);
+      }
       throw errors.schemaError(`${messageAttributes} already exist`);
     }
     return exists;
