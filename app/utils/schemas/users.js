@@ -92,3 +92,34 @@ exports.signUpSchema = {
     errorMessage: typeError('deletedAt', 'DATE')
   }
 };
+
+exports.loginSchema = {
+  email: {
+    in: 'body',
+    trim: true,
+    isString: true,
+    isEmpty: {
+      negated: true,
+      errorMessage: keyNotExist('email')
+    },
+    matches: {
+      options: EMAIL_WOLOX_REGEX,
+      errorMessage: invalidEmail(EMAIL_WOLOX_AR, EMAIL_WOLOX_CO, EMAIL_WOLOX_CL, EMAIL_WOLOX_MX)
+    }
+  },
+  password: {
+    in: 'body',
+    matches: {
+      options: ALPHANUMERICAL_REGEX,
+      errorMessage: notAlphanumerical('password')
+    },
+    isLength: {
+      options: { min: PASSWORD_MIN_LENGTH },
+      errorMessage: invalidMinLength('password', PASSWORD_MIN_LENGTH)
+    },
+    isEmpty: {
+      negated: true,
+      errorMessage: keyNotExist('password')
+    }
+  }
+};
