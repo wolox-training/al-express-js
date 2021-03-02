@@ -4,15 +4,12 @@ exports.config = {
     database: {
       name: process.env.DB_NAME_DEV
     },
-    jwt: {
-      secretKey: process.env.JWT_SECRET_KEY,
-      expHours: process.env.JWT_EXP_HOURS
+    session: {
+      secret: process.env.SESSION_SECRET,
+      expHours: process.env.SESSION_EXP_HOURS
     },
     jsonPlaceHolderApi: {
       baseUrl: process.env.JSON_PLACE_HOLDER_API_BASE_URL
-    },
-    encryption: {
-      passwordSalt: process.env.PASSWORD_SALT
     }
   },
   isDevelopment: true

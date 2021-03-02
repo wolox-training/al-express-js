@@ -5,15 +5,12 @@ exports.config = {
     database: {
       name: process.env.DB_NAME_TEST
     },
-    jwt: {
-      secretKey: 'aSecret',
+    session: {
+      secret: 'aSecret',
       expHours: 1
     },
     jsonPlaceHolderApi: {
       baseUrl: 'dummyUrl'
-    },
-    encryption: {
-      passwordSalt: 1
     }
   }
 };
