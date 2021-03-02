@@ -1,27 +1,73 @@
 module.exports = {
-  userId: {
+  id: {
     type: 'integer',
-    example: 7
+    example: 5
   },
-  username: {
+  firstName: {
     type: 'string',
-    example: 'tom99'
+    example: 'Pepe'
   },
-  userEmail: {
+  lastName: {
     type: 'string',
-    example: 'tom.engels@wolox.com.ar'
+    example: 'López'
+  },
+  email: {
+    type: 'string',
+    example: 'pepe.lopez@wolox.com.ar'
+  },
+  password: {
+    type: 'string',
+    example: 'myPassword123'
+  },
+  createdAt: {
+    type: 'date',
+    example: '2021-01-23T20:04:02.000Z'
+  },
+  updatedAt: {
+    type: 'date',
+    example: '2021-01-23T20:04:02.000Z'
+  },
+  deletedAt: {
+    type: 'date',
+    example: '2021-01-23T20:04:02.000Z'
+  },
+  UserRequest: {
+    type: 'object',
+    properties: {
+      firstName: {
+        $ref: '#/components/schemas/firstName'
+      },
+      lastName: {
+        $ref: '#/components/schemas/lastName'
+      },
+      email: {
+        $ref: '#/components/schemas/email'
+      },
+      password: {
+        $ref: '#/components/schemas/password'
+      }
+    }
   },
   User: {
     type: 'object',
     properties: {
       id: {
-        $ref: '#/components/schemas/userId'
+        $ref: '#/components/schemas/id'
       },
-      username: {
-        $ref: '#/components/schemas/username'
+      firstName: {
+        $ref: '#/components/schemas/firstName'
+      },
+      lastName: {
+        $ref: '#/components/schemas/lastName'
       },
       email: {
-        $ref: '#/components/schemas/userEmail'
+        $ref: '#/components/schemas/email'
+      },
+      createdAt: {
+        $ref: '#/components/schemas/createdAt'
+      },
+      updatedAt: {
+        $ref: '#/components/schemas/updatedAt'
       }
     }
   },

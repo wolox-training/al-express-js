@@ -37,26 +37,57 @@ module.exports = {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/UserRequest'
             }
           }
         },
         required: true
       },
       responses: {
-        200: {
-          description: 'New user was created'
-        },
-        400: {
-          description: 'Invalid parameters',
+        201: {
+          description: 'User was created!',
           content: {
             'application/json': {
               schema: {
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/User'
+              }
+            }
+          }
+        },
+        422: {
+          description: 'Invalid Schema',
+          content: {
+            'application/json': {
+              schema: {
+                oneOf: [
+                  { $ref: '#/components/schemas/ParamSchemaError' },
+                  { $ref: '#/components/schemas/Error' }
+                ]
               },
-              example: {
-                message: 'User´s email already exists',
-                internal_code: 'invalid_parameters'
+              examples: {
+                invalidParam: {
+                  summary: 'Invalid param',
+                  value: {
+                    message: {
+                      errors: [
+                        {
+                          value: 'myPassword',
+                          msg: 'password must be Alphanumerical',
+                          param: 'password',
+                          location: 'body'
+                        }
+                      ]
+                    },
+                    internal_code: 'schema_error'
+                  }
+                },
+                emailNotExist: {
+                  summary: 'Email not exist',
+                  value: {
+                    message: 'email already exists',
+                    internal_code: 'schema_error'
+                  }
+                }
               }
             }
           }
