@@ -17,17 +17,9 @@ const {
 } = require('../constants');
 
 exports.signUpSchema = {
-  id: {
-    in: ['body'],
-    trim: true,
-    isUUID: true,
-    optional: { options: { nullable: true } },
-    errorMessage: typeError('id', 'UUID')
-  },
   firstName: {
     in: 'body',
     trim: true,
-    optional: { options: { nullable: true } },
     isEmpty: {
       negated: true,
       errorMessage: keyNotExist('firstName')
@@ -36,7 +28,6 @@ exports.signUpSchema = {
   lastName: {
     in: 'body',
     trim: true,
-    optional: { options: { nullable: true } },
     isEmpty: {
       negated: true,
       errorMessage: keyNotExist('lastName')
