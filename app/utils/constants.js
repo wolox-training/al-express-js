@@ -18,6 +18,7 @@ exports.EMAIL_WOLOX_MX = `@${exports.DOMAIN_WOLOX_MX}`;
 
 // PASSWORDS
 exports.PASSWORD_MIN_LENGTH = 8;
+exports.PASSWORD_SALT = 8;
 
 // REGEX
 exports.ALPHANUMERICAL_REGEX = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
