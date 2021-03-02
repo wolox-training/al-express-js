@@ -3,7 +3,7 @@ const jwt = require('jwt-simple');
 const logger = require('../logger');
 const errors = require('../errors');
 const UserRepository = require('../repositories/users');
-const { secretKey, expHours } = require('../../config').common.jwt;
+const { secret, expHours } = require('../../config').common.session;
 const { addHours, timestamp } = require('../helpers/timestamp');
 const { userSerializer } = require('../serializers/users');
 const { PASSWORD_SALT } = require('../utils/constants');
@@ -45,7 +45,7 @@ const login = async (email, password) => {
 
     const iat = Math.round(timestamp());
     const exp = Math.round(addHours(expHours));
-    const token = jwt.encode({ sub: user.id, iat, exp }, secretKey);
+    const token = jwt.encode({ sub: user.id, iat, exp }, secret);
 
     return {
       ...userSerializer(user),
