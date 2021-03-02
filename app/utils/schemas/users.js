@@ -60,19 +60,5 @@ exports.signUpSchema = {
       negated: true,
       errorMessage: keyNotExist('password')
     }
-  },
-  createdAt: {
-    in: ['body'],
-    trim: true,
-    isDate: true,
-    optional: { options: { nullable: true } },
-    errorMessage: typeError('createdAt', 'DATE')
-  },
-  updatedAt: {
-    in: ['body'],
-    trim: true,
-    isDate: true,
-    optional: { options: { nullable: true } },
-    errorMessage: typeError('updatedAt', 'DATE')
   }
 };
