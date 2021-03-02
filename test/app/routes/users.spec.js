@@ -1,6 +1,5 @@
 const request = require('supertest');
 
-// const { omit } = require('lodash');
 const app = require('../../../app');
 const {
   userMockReq,

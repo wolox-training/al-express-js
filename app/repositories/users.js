@@ -1,4 +1,3 @@
-const { forIn, isUndefined, isEqual, isEmpty } = require('lodash');
 const errors = require('../errors');
 const db = require('../models');
 const logger = require('../logger');
@@ -6,12 +5,15 @@ const logger = require('../logger');
 const queryBuilder = (attributes, searchOp = 'and') => {
   const { Op } = db.Sequelize;
   const attributesToFilter = {};
-  forIn(attributes, (value, key) => {
-    if (isUndefined(value)) return;
-    if (isEqual(key, 'id')) attributesToFilter[key] = { [Op.eq]: value };
-    else attributesToFilter[key] = value;
+
+  Object.keys(attributes).forEach(key => {
+    if (!attributes[key]) return;
+    if (key === 'id') attributesToFilter[key] = { [Op.eq]: attributes[key] };
+    else attributesToFilter[key] = attributes[key];
   });
-  if (!isEmpty(attributesToFilter)) return { [Op[searchOp]]: attributesToFilter };
+
+  if (Object.keys(attributesToFilter).length > 0) return { [Op[searchOp]]: attributesToFilter };
+
   return attributesToFilter;
 };
 
@@ -22,10 +24,7 @@ class UserRepository {
 
   async save(user) {
     try {
-      const newUser = await this.User.create(user);
-      delete newUser.dataValues.password;
-      delete newUser.dataValues.deletedAt;
-      return newUser.toJSON();
+      return (await this.User.create(user)).toJSON();
     } catch (error) {
       logger.error('Error when was trying to create a new user: ', error.message);
       throw errors.databaseError('Unknown error when was trying to create the user');

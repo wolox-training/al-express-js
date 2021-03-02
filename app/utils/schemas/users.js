@@ -1,5 +1,4 @@
 const {
-  typeError,
   keyNotExist,
   invalidEmail,
   notAlphanumerical,
@@ -17,17 +16,9 @@ const {
 } = require('../constants');
 
 exports.signUpSchema = {
-  id: {
-    in: ['body'],
-    trim: true,
-    isUUID: true,
-    optional: { options: { nullable: true } },
-    errorMessage: typeError('id', 'UUID')
-  },
   firstName: {
     in: 'body',
     trim: true,
-    optional: { options: { nullable: true } },
     isEmpty: {
       negated: true,
       errorMessage: keyNotExist('firstName')
@@ -36,7 +27,6 @@ exports.signUpSchema = {
   lastName: {
     in: 'body',
     trim: true,
-    optional: { options: { nullable: true } },
     isEmpty: {
       negated: true,
       errorMessage: keyNotExist('lastName')
@@ -69,26 +59,5 @@ exports.signUpSchema = {
       negated: true,
       errorMessage: keyNotExist('password')
     }
-  },
-  createdAt: {
-    in: ['body'],
-    trim: true,
-    isDate: true,
-    optional: { options: { nullable: true } },
-    errorMessage: typeError('createdAt', 'DATE')
-  },
-  updatedAt: {
-    in: ['body'],
-    trim: true,
-    isDate: true,
-    optional: { options: { nullable: true } },
-    errorMessage: typeError('updatedAt', 'DATE')
-  },
-  deletedAt: {
-    in: ['body'],
-    trim: true,
-    isDate: true,
-    optional: { options: { nullable: true } },
-    errorMessage: typeError('deletedAt', 'DATE')
   }
 };
