@@ -8,7 +8,6 @@ const userRepository = new UserRepository();
 const signUp = async body => {
   try {
     await userRepository.existBy({ email: body.email }, 'and', true);
-
     // eslint-disable-next-line require-atomic-updates
     body.password = bcrypt.hashSync(body.password, 8);
 

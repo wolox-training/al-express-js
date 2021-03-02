@@ -5,7 +5,9 @@ exports.config = {
     database: {
       name: process.env.DB_NAME_TEST
     },
-
+    jsonPlaceHolderApi: {
+      baseUrl: 'dummyUrl'
+    },
     session: {
       secret: 'some-super-secret'
     }

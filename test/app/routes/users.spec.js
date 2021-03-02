@@ -1,24 +1,34 @@
 const request = require('supertest');
 
-const { omit } = require('lodash');
+// const { omit } = require('lodash');
 const app = require('../../../app');
 const {
-  userMock,
+  userMockReq,
   passwordErrorByAllResponse,
   passwordErrorByAlphaNumRes,
   passwordErrorByMinLengthRes,
-  mandatoryParamsErrorResponse
+  mandatoryParamsErrorResponse,
+  userMockRes
 } = require('../../mocks/users');
+const userService = require('../../../app/services/users');
 
 describe('Users Routes', () => {
   const apiPath = '/users';
   describe('POST /users (Sign Up)', () => {
     const signUpPath = apiPath;
 
+    beforeAll(() => {
+      userService.signUp = jest.fn().mockResolvedValue(userMockRes);
+    });
+
+    afterAll(() => {
+      jest.clearAllMocks();
+    });
+
     it('should be successfully', async () => {
       const res = await request(app)
         .post(signUpPath)
-        .send(userMock)
+        .send(userMockReq)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/);
 
@@ -27,7 +37,7 @@ describe('Users Routes', () => {
       expect(res.body.id).toBeTruthy();
       expect(res.body.createdAt).toBeTruthy();
       expect(res.body.updatedAt).toBeTruthy();
-      expect(res.body).toMatchObject(omit(userMock, ['password']));
+      expect(res.body).toMatchObject(userMockRes);
     });
 
     it('should fail with an invalid password given', async () => {
@@ -36,7 +46,7 @@ describe('Users Routes', () => {
       const wrongPassword = 'aPass';
       res = await request(app)
         .post(signUpPath)
-        .send({ ...userMock, password: wrongPassword })
+        .send({ ...userMockReq, password: wrongPassword })
         .set('Accept', 'application/json');
 
       expect(res.body).toEqual(passwordErrorByAllResponse(wrongPassword));
@@ -44,7 +54,7 @@ describe('Users Routes', () => {
       const wrongPasswordAlphaNumerical = 'aPassword';
       res = await request(app)
         .post(signUpPath)
-        .send({ ...userMock, password: wrongPasswordAlphaNumerical })
+        .send({ ...userMockReq, password: wrongPasswordAlphaNumerical })
         .set('Accept', 'application/json');
 
       expect(res.body).toEqual(passwordErrorByAlphaNumRes(wrongPasswordAlphaNumerical));
@@ -52,7 +62,7 @@ describe('Users Routes', () => {
       const wrongPasswordMinLength = 'aPass12';
       res = await request(app)
         .post(signUpPath)
-        .send({ ...userMock, password: wrongPasswordMinLength })
+        .send({ ...userMockReq, password: wrongPasswordMinLength })
         .set('Accept', 'application/json');
 
       expect(res.body).toEqual(passwordErrorByMinLengthRes(wrongPasswordMinLength));

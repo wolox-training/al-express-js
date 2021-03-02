@@ -17,13 +17,14 @@ const queryBuilder = (attributes, searchOp = 'and') => {
 
 class UserRepository {
   constructor() {
-    this.User = db.users;
+    this.User = db.User;
   }
 
   async save(user) {
     try {
       const newUser = await this.User.create(user);
       delete newUser.dataValues.password;
+      delete newUser.dataValues.deletedAt;
       return newUser.toJSON();
     } catch (error) {
       logger.error('Error when was trying to create a new user: ', error.message);

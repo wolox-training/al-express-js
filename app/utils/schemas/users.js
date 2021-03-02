@@ -83,5 +83,12 @@ exports.signUpSchema = {
     isDate: true,
     optional: { options: { nullable: true } },
     errorMessage: typeError('updatedAt', 'DATE')
+  },
+  deletedAt: {
+    in: ['body'],
+    trim: true,
+    isDate: true,
+    optional: { options: { nullable: true } },
+    errorMessage: typeError('deletedAt', 'DATE')
   }
 };

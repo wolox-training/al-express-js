@@ -1,8 +1,17 @@
-exports.userMock = {
+exports.userMockReq = {
   firstName: 'Andrés',
   lastName: 'López',
-  email: 'andres.lopez@wolox.co',
+  email: 'test1@wolox.co',
   password: 'sasa1234'
+};
+
+exports.userMockRes = {
+  id: 5,
+  firstName: 'Andrés',
+  lastName: 'López',
+  email: 'test1@wolox.co',
+  updatedAt: '2021-03-02T01:31:21.872Z',
+  createdAt: '2021-03-02T01:31:21.872Z'
 };
 
 exports.passwordErrorByAllResponse = value => ({
