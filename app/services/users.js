@@ -3,7 +3,7 @@ const logger = require('../logger');
 const errors = require('../errors');
 const UserRepository = require('../repositories/users');
 const { userSerializer } = require('../serializers/users');
-const { passwordSalt } = require('../../config').encryption;
+const { passwordSalt } = require('../../config').common.encryption;
 
 const userRepository = new UserRepository();
 

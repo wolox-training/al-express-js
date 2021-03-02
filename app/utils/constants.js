@@ -1,5 +1,5 @@
 // COUNTRY CODES
-exports.DOMAIN_ARGENTINA = 'com.ar';
+exports.DOMAIN_ARGENTINA = '.com.ar';
 exports.DOMAIN_COLOMBIA = '.co';
 exports.DOMAIN_CHILE = '.cl';
 exports.DOMAIN_MEXICO = '.com.mx';
