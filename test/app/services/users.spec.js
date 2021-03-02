@@ -1,4 +1,13 @@
-const { userMockReq, userMockRes } = require('../../mocks/users');
+jest.mock('jwt-simple', () => ({ encode: jest.fn(() => 'a token!') }));
+const bcrypt = require('bcryptjs');
+
+const {
+  userMockReq,
+  userMockRes,
+  userGetByIdResponseMock,
+  userLoginResponseMock
+} = require('../../mocks/users');
+
 const userService = require('../../../app/services/users');
 const errors = require('../../../app/errors');
 const UserRepository = require('../../../app/repositories/users');
@@ -31,6 +40,41 @@ describe('Users Service', () => {
     } catch (error) {
       expect(error.message).toBe(errorResponse.message);
       expect(error.internalCode).toBe(errorResponse.internalCode);
+    }
+  });
+
+  it('should login succesfully an existing user', async () => {
+    bcrypt.compareSync = jest.fn(() => true);
+    const email = 'user1@wolox.co';
+    const password = 'myPassword123';
+
+    UserRepository.prototype.getBy = jest.fn().mockResolvedValue(userGetByIdResponseMock(email));
+    const user = await userService.login(email, password);
+    expect(user).toEqual(userLoginResponseMock(email));
+  });
+
+  it('should not login with a not existing username', async () => {
+    UserRepository.prototype.getBy = jest.fn().mockResolvedValue(undefined);
+    const error = errors.schemaError('Username or password are incorrect');
+    const email = 'not.exist@wolox.co';
+    const password = 'myPassword123';
+    try {
+      await userService.login({ email, password });
+    } catch (e) {
+      expect(e).toEqual(error);
+    }
+  });
+  it('should not login with an incorrect password', async () => {
+    bcrypt.compareSync = jest.fn(() => false);
+    const email = 'user1@wolox.co';
+    const password = 'wrongPassword123';
+    const error = errors.schemaError('Username or password are incorrect');
+    UserRepository.prototype.getBy = jest.fn().mockResolvedValue(userGetByIdResponseMock(email));
+
+    try {
+      await userService.login(email, password);
+    } catch (e) {
+      expect(e).toEqual(error);
     }
   });
 });

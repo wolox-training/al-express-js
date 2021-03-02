@@ -31,7 +31,12 @@ class UserRepository {
     }
   }
 
-  async existBy(attributes, searchOp, errIfExists = false) {
+  async getBy(attributes, searchOp = 'or') {
+    const instructions = { ...queryBuilder(attributes, searchOp) };
+    return (await this.User.findOne({ where: instructions })).toJSON();
+  }
+
+  async existBy(attributes, searchOp = 'or', errIfExists = false) {
     const instructions = { ...queryBuilder(attributes, searchOp) };
     const exists = (await this.User.count({ where: instructions })) !== 0;
     if (errIfExists && exists) {
