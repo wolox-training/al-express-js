@@ -7,9 +7,6 @@ exports.config = {
     },
     session: {
       secret: 'some-super-secret'
-    },
-    encryption: {
-      passwordSalt: 1
     }
   }
 };
