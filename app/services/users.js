@@ -3,7 +3,7 @@ const logger = require('../logger');
 const errors = require('../errors');
 const UserRepository = require('../repositories/users');
 const { userSerializer } = require('../serializers/users');
-const { passwordSalt } = require('../../config').common.encryption;
+const { PASSWORD_SALT } = require('../utils/constants');
 
 const userRepository = new UserRepository();
 
@@ -11,7 +11,7 @@ const signUp = async body => {
   try {
     await userRepository.existBy({ email: body.email }, 'and', true);
     // eslint-disable-next-line require-atomic-updates
-    body.password = bcrypt.hashSync(body.password, parseInt(passwordSalt));
+    body.password = bcrypt.hashSync(body.password, PASSWORD_SALT);
 
     const user = await userRepository.save(body);
     if (!user) {
