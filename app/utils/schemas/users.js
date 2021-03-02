@@ -1,5 +1,4 @@
 const {
-  typeError,
   keyNotExist,
   invalidEmail,
   notAlphanumerical,
