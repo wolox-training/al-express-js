@@ -66,7 +66,7 @@ module.exports = {
               },
               examples: {
                 invalidParam: {
-                  summary: 'Invalid param',
+                  summary: 'Invalid parameter',
                   value: {
                     message: {
                       errors: [
@@ -86,6 +86,23 @@ module.exports = {
                   value: {
                     message: 'email already exists',
                     internal_code: 'schema_error'
+                  }
+                }
+              }
+            }
+          }
+        },
+        503: {
+          description: 'Invalid Schema',
+          content: {
+            'application/json': {
+              schema: { $ref: '#/components/schemas/Error' },
+              examples: {
+                databaseError: {
+                  summary: 'Database Error',
+                  value: {
+                    message: 'Unknown error when was trying to create the user',
+                    internal_code: 'database_error'
                   }
                 }
               }

@@ -28,7 +28,7 @@ class UserRepository {
       return newUser.toJSON();
     } catch (error) {
       logger.error('Error when was trying to create a new user: ', error.message);
-      throw errors.databaseError('Unknown when was trying to create the user');
+      throw errors.databaseError('Unknown error when was trying to create the user');
     }
   }
 
