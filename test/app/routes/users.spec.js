@@ -1,3 +1,6 @@
+jest.mock('../../../app/middlewares/session', () => ({
+  verifyToken: jest.fn((_req, _res, next) => next())
+}));
 const request = require('supertest');
 
 const app = require('../../../app');
@@ -10,12 +13,50 @@ const {
   userMockRes,
   userLoginResponseMock,
   userLoginMockReq,
-  loginMandatoryParamsErrorRes
+  loginMandatoryParamsErrorRes,
+  usersListResMock,
+  tokenMock,
+  tokenMissingErrorMock
 } = require('../../mocks/users');
 const userService = require('../../../app/services/users');
 
 describe('Users Routes', () => {
   const basePath = '/users';
+
+  describe('GET /users (Get All)', () => {
+    const getAllPath = basePath;
+
+    beforeAll(() => {
+      userService.getAll = jest.fn().mockResolvedValue(usersListResMock);
+    });
+
+    afterAll(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should be successfully', async () => {
+      const res = await request(app)
+        .get(getAllPath)
+        .send({})
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${tokenMock}`)
+        .expect('Content-Type', /json/);
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toBeDefined();
+      expect(res.body).toMatchObject(usersListResMock);
+    });
+
+    it('should fail when is not given authorization header', async () => {
+      const res = await request(app)
+        .get(getAllPath)
+        .send({})
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/);
+      expect(res.body).toEqual(tokenMissingErrorMock);
+    });
+  });
+
   describe('POST /users (Sign Up)', () => {
     const signUpPath = basePath;
 

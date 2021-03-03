@@ -11,6 +11,7 @@ exports.config = {
     },
     jsonPlaceHolderApi: {
       baseUrl: 'dummyUrl'
-    }
+    },
+    availableDomains: process.env.AVAILABLE_DOMAINS
   }
 };

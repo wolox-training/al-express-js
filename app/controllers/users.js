@@ -18,7 +18,17 @@ const login = async (req, res, next) => {
   }
 };
 
+const getAll = async (req, res, next) => {
+  try {
+    const users = await userService.getAll(req.query);
+    res.status(200).send(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   signUp,
-  login
+  login,
+  getAll
 };
