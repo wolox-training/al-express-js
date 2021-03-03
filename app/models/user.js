@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       tableName: 'users',
-      freezeTableName: 'users',
+      freezeTableName: true,
       timestamps: true,
       paranoid: true,
       underscored: true

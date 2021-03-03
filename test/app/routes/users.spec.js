@@ -12,9 +12,9 @@ const {
 const userService = require('../../../app/services/users');
 
 describe('Users Routes', () => {
-  const apiPath = '/users';
+  const basePath = '/users';
   describe('POST /users (Sign Up)', () => {
-    const signUpPath = apiPath;
+    const signUpPath = basePath;
 
     beforeAll(() => {
       userService.signUp = jest.fn().mockResolvedValue(userMockRes);
