@@ -15,9 +15,9 @@ const {
 const userService = require('../../../app/services/users');
 
 describe('Users Routes', () => {
-  const apiPath = '/users';
+  const basePath = '/users';
   describe('POST /users (Sign Up)', () => {
-    const signUpPath = apiPath;
+    const signUpPath = basePath;
 
     beforeAll(() => {
       userService.signUp = jest.fn().mockResolvedValue(userMockRes);
@@ -81,7 +81,7 @@ describe('Users Routes', () => {
   });
 
   describe('POST /users/sessions (Login)', () => {
-    const loginPath = `${apiPath}/sessions`;
+    const loginPath = `${basePath}/sessions`;
 
     beforeAll(() => {
       userService.login = jest.fn().mockResolvedValue(userLoginResponseMock());
