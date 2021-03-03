@@ -7,4 +7,7 @@ exports.userSerializer = user => ({
   updatedAt: user.updatedAt
 });
 
-exports.usersSerializer = users => users.map(this.userSerializer);
+exports.usersSerializer = users => ({
+  count: users.count,
+  rows: users.rows.map(this.userSerializer)
+});

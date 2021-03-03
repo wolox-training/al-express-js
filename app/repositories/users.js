@@ -33,10 +33,10 @@ class UserRepository {
   }
 
   async getAll(query) {
-    const offset = parseInt(query.page) * parseInt(query.size) || DEFAULT_OFFSET;
+    const offset = (parseInt(query.page) - 1) * parseInt(query.size) || DEFAULT_OFFSET;
     const limit = parseInt(query.size) || DEFAULT_LIMIT;
-
-    return (await this.User.findAndCountAll({ offset, limit })).toJSON();
+    const users = await this.User.findAndCountAll({ offset, limit });
+    return users;
   }
 
   async getBy(attributes, searchOp = 'or') {

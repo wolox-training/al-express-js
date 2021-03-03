@@ -56,7 +56,7 @@ const login = async (email, password) => {
 
 const getAll = async query => {
   try {
-    const users = userRepository.getAll(query);
+    const users = await userRepository.getAll(query);
     logger.info('Users list obtained!');
 
     return await usersSerializer(users);
