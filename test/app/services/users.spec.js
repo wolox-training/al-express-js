@@ -7,7 +7,6 @@ const {
   userGetByIdResponseMock,
   userLoginResponseMock
 } = require('../../mocks/users');
-
 const userService = require('../../../app/services/users');
 const errors = require('../../../app/errors');
 const UserRepository = require('../../../app/repositories/users');
