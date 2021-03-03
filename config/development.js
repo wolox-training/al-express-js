@@ -6,7 +6,7 @@ exports.config = {
     },
     session: {
       secret: process.env.SESSION_SECRET,
-      expHours: process.env.SESSION_EXP_HOURS
+      expTimeSeconds: parseInt(process.env.SESSION_EXP_TIME_SECONDS)
     },
     jsonPlaceHolderApi: {
       baseUrl: process.env.JSON_PLACE_HOLDER_API_BASE_URL

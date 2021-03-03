@@ -1,10 +1,9 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jwt-simple');
+const jwt = require('jsonwebtoken');
 const logger = require('../logger');
 const errors = require('../errors');
 const UserRepository = require('../repositories/users');
-const { secret, expHours } = require('../../config').common.session;
-const { addHours, timestamp } = require('../helpers/timestamp');
+const { secret, expTimeSeconds } = require('../../config').common.session;
 const { userSerializer, usersSerializer } = require('../serializers/users');
 const { PASSWORD_SALT } = require('../utils/constants');
 
@@ -43,9 +42,7 @@ const login = async (email, password) => {
       throw errors.schemaError('Username or password are incorrect');
     }
 
-    const iat = Math.round(timestamp());
-    const exp = Math.round(addHours(expHours));
-    const token = jwt.encode({ sub: user.id, iat, exp }, secret);
+    const token = jwt.sign({ sub: user.id }, secret, { expiresIn: expTimeSeconds });
 
     return {
       ...userSerializer(user),

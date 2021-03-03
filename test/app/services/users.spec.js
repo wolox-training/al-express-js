@@ -1,4 +1,4 @@
-jest.mock('jwt-simple', () => ({ encode: jest.fn(() => 'a token!') }));
+jest.mock('jsonwebtoken', () => ({ sign: jest.fn(() => 'a token!') }));
 const bcrypt = require('bcryptjs');
 
 const {
