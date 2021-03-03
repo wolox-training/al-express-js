@@ -7,7 +7,7 @@ exports.config = {
     },
     session: {
       secret: 'aSecret',
-      expHours: 1
+      expTimeSeconds: 1
     },
     jsonPlaceHolderApi: {
       baseUrl: 'dummyUrl'
