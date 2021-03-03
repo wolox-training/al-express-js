@@ -19,6 +19,36 @@ exports.userMockRes = {
   createdAt: '2021-03-02T01:31:21.872Z'
 };
 
+exports.usersListResMock = {
+  count: 3,
+  rows: [
+    {
+      id: 1,
+      firstName: 'Andrés 1',
+      lastName: 'López 1',
+      email: 'test1@wolox.co',
+      createdAt: '2021-03-02T01:48:29.471Z',
+      updatedAt: '2021-03-02T01:48:29.471Z'
+    },
+    {
+      id: 2,
+      firstName: 'Andrés 2',
+      lastName: 'López 2',
+      email: 'test2@wolox.co',
+      createdAt: '2021-03-02T02:37:47.442Z',
+      updatedAt: '2021-03-02T02:37:47.442Z'
+    },
+    {
+      id: 3,
+      firstName: 'Andrés 3',
+      lastName: 'López 3',
+      email: 'test3@wolox.co',
+      createdAt: '2021-03-02T11:22:20.015Z',
+      updatedAt: '2021-03-02T11:22:20.015Z'
+    }
+  ]
+};
+
 exports.passwordErrorByAllResponse = value => ({
   message: {
     errors: [
@@ -76,6 +106,26 @@ exports.loginMandatoryParamsErrorRes = {
       { msg: 'password must be Alphanumerical', param: 'password', location: 'body' },
       { msg: 'password must have a minimum length of 8', param: 'password', location: 'body' },
       { msg: 'Key password must exist', param: 'password', location: 'body' }
+    ]
+  },
+  internal_code: 'schema_error'
+};
+
+exports.tokenMissingErrorMock = {
+  message: {
+    errors: [
+      {
+        value: '',
+        msg: 'Key Authorization header for token must exist',
+        param: 'authorization',
+        location: 'headers'
+      },
+      {
+        value: '',
+        msg: 'Key Authorization header for token must exist',
+        param: 'authorization',
+        location: 'headers'
+      }
     ]
   },
   internal_code: 'schema_error'

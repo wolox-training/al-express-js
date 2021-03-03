@@ -5,7 +5,8 @@ const {
   userMockReq,
   userMockRes,
   userGetByIdResponseMock,
-  userLoginResponseMock
+  userLoginResponseMock,
+  usersListResMock
 } = require('../../mocks/users');
 
 const userService = require('../../../app/services/users');
@@ -73,6 +74,23 @@ describe('Users Service', () => {
 
     try {
       await userService.login(email, password);
+    } catch (e) {
+      expect(e).toEqual(error);
+    }
+  });
+
+  it('should get all exiting users', async () => {
+    UserRepository.prototype.getAll = jest.fn().mockResolvedValue(usersListResMock);
+    const users = await userService.getAll({});
+    expect(users).toEqual(usersListResMock);
+  });
+
+  it('should throw an error when trying to fetch all users', async () => {
+    const error = errors.databaseError('Unknown error when was trying to list the users');
+    UserRepository.prototype.getAll = jest.fn().mockRejectedValue(error);
+
+    try {
+      await userService.getAll({});
     } catch (e) {
       expect(e).toEqual(error);
     }

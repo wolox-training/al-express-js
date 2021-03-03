@@ -5,7 +5,6 @@ const { secret } = require('../../config').common.session;
 
 const verifyToken = (req, _, next) => {
   logger.info('Session middleware - verifyToken');
-
   try {
     const token = req.headers.authorization.replace('Bearer ', '');
     const decoded = jwt.verify(token, secret);

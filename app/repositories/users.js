@@ -35,8 +35,12 @@ class UserRepository {
   async getAll(query) {
     const offset = (parseInt(query.page) - 1) * parseInt(query.size) || DEFAULT_OFFSET;
     const limit = parseInt(query.size) || DEFAULT_LIMIT;
-    const users = await this.User.findAndCountAll({ offset, limit });
-    return users;
+    try {
+      return await this.User.findAndCountAll({ offset, limit });
+    } catch (error) {
+      logger.error('Error when was trying to list the users: ', error.message);
+      throw errors.databaseError('Unknown error when was trying to list the users');
+    }
   }
 
   async getBy(attributes, searchOp = 'or') {
