@@ -1,4 +1,4 @@
-const internalError = require('../helpers/error');
+const { internalError } = require('../helpers/error');
 
 const DATABASE_ERROR = 'database_error';
 
