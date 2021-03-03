@@ -6,8 +6,11 @@ const {
   passwordErrorByAllResponse,
   passwordErrorByAlphaNumRes,
   passwordErrorByMinLengthRes,
-  mandatoryParamsErrorResponse,
-  userMockRes
+  signUpMandatoryParamsErrorRes,
+  userMockRes,
+  userLoginResponseMock,
+  userLoginMockReq,
+  loginMandatoryParamsErrorRes
 } = require('../../mocks/users');
 const userService = require('../../../app/services/users');
 
@@ -73,7 +76,68 @@ describe('Users Routes', () => {
         .send({ firstName: 'Andrés', lastName: 'López' })
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/);
-      expect(res.body).toEqual(mandatoryParamsErrorResponse);
+      expect(res.body).toEqual(signUpMandatoryParamsErrorRes);
+    });
+  });
+
+  describe('POST /users/sessions (Login)', () => {
+    const loginPath = `${basePath}/sessions`;
+
+    beforeAll(() => {
+      userService.login = jest.fn().mockResolvedValue(userLoginResponseMock());
+    });
+
+    afterAll(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should be successfully', async () => {
+      const res = await request(app)
+        .post(loginPath)
+        .send(userLoginMockReq)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/);
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toBeDefined();
+      expect(res.body).toMatchObject(userLoginResponseMock());
+    });
+
+    it('should fail with an invalid password given', async () => {
+      let res = undefined;
+
+      const wrongPassword = 'aPass';
+      res = await request(app)
+        .post(loginPath)
+        .send({ ...userMockReq, password: wrongPassword })
+        .set('Accept', 'application/json');
+
+      expect(res.body).toEqual(passwordErrorByAllResponse(wrongPassword));
+
+      const wrongPasswordAlphaNumerical = 'aPassword';
+      res = await request(app)
+        .post(loginPath)
+        .send({ ...userMockReq, password: wrongPasswordAlphaNumerical })
+        .set('Accept', 'application/json');
+
+      expect(res.body).toEqual(passwordErrorByAlphaNumRes(wrongPasswordAlphaNumerical));
+
+      const wrongPasswordMinLength = 'aPass12';
+      res = await request(app)
+        .post(loginPath)
+        .send({ ...userMockReq, password: wrongPasswordMinLength })
+        .set('Accept', 'application/json');
+
+      expect(res.body).toEqual(passwordErrorByMinLengthRes(wrongPasswordMinLength));
+    });
+
+    it('should fail when is not given any mandatory params', async () => {
+      const res = await request(app)
+        .post(loginPath)
+        .send({ firstName: 'Andrés', lastName: 'López' })
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/);
+      expect(res.body).toEqual(loginMandatoryParamsErrorRes);
     });
   });
 });
