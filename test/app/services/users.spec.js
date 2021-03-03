@@ -60,8 +60,8 @@ describe('Users Service', () => {
     const password = 'myPassword123';
     try {
       await userService.login({ email, password });
-    } catch (e) {
-      expect(e).toEqual(error);
+    } catch (err) {
+      expect(err).toEqual(error);
     }
   });
   it('should not login with an incorrect password', async () => {
@@ -73,8 +73,8 @@ describe('Users Service', () => {
 
     try {
       await userService.login(email, password);
-    } catch (e) {
-      expect(e).toEqual(error);
+    } catch (err) {
+      expect(err).toEqual(error);
     }
   });
 });
