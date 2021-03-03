@@ -1,6 +1,7 @@
 const errors = require('../errors');
 const db = require('../models');
 const logger = require('../logger');
+const { DEFAULT_LIMIT, DEFAULT_OFFSET } = require('../utils/constants');
 
 const queryBuilder = (attributes, searchOp = 'and') => {
   const { Op } = db.Sequelize;
@@ -29,6 +30,13 @@ class UserRepository {
       logger.error('Error when was trying to create a new user: ', error.message);
       throw errors.databaseError('Unknown error when was trying to create the user');
     }
+  }
+
+  async getAll(query) {
+    const offset = parseInt(query.page) * parseInt(query.size) || DEFAULT_OFFSET;
+    const limit = parseInt(query.size) || DEFAULT_LIMIT;
+
+    return (await this.User.findAndCountAll({ offset, limit })).toJSON();
   }
 
   async getBy(attributes, searchOp = 'or') {

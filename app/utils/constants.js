@@ -20,6 +20,10 @@ exports.EMAIL_WOLOX_MX = `@${exports.DOMAIN_WOLOX_MX}`;
 exports.PASSWORD_MIN_LENGTH = 8;
 exports.PASSWORD_SALT = 8;
 
+// PAGINATION
+exports.DEFAULT_OFFSET = 0;
+exports.DEFAULT_LIMIT = 50;
+
 // REGEX
 exports.ALPHANUMERICAL_REGEX = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
 exports.EMAIL_WOLOX_REGEX = new RegExp(

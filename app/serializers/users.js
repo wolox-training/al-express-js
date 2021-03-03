@@ -6,3 +6,5 @@ exports.userSerializer = user => ({
   createdAt: user.createdAt,
   updatedAt: user.updatedAt
 });
+
+exports.usersSerializer = users => users.map(this.userSerializer);

@@ -5,7 +5,7 @@ const errors = require('../errors');
 const UserRepository = require('../repositories/users');
 const { secret, expHours } = require('../../config').common.session;
 const { addHours, timestamp } = require('../helpers/timestamp');
-const { userSerializer } = require('../serializers/users');
+const { userSerializer, usersSerializer } = require('../serializers/users');
 const { PASSWORD_SALT } = require('../utils/constants');
 
 const userRepository = new UserRepository();
@@ -57,7 +57,20 @@ const login = async (email, password) => {
   }
 };
 
+const getAll = async query => {
+  try {
+    const users = userRepository.getAll(query);
+    logger.info('Users list obtained!');
+
+    return await usersSerializer(users);
+  } catch (error) {
+    logger.error('Error when was trying to list the users: ', error.message);
+    throw error;
+  }
+};
+
 module.exports = {
   signUp,
-  login
+  login,
+  getAll
 };
