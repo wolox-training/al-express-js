@@ -14,7 +14,7 @@ const {
   userLoginResponseMock,
   userLoginMockReq,
   loginMandatoryParamsErrorRes,
-  usersListResMock,
+  usersGetAllResMock,
   tokenMock,
   tokenMissingErrorMock
 } = require('../../mocks/users');
@@ -27,7 +27,7 @@ describe('Users Routes', () => {
     const getAllPath = basePath;
 
     beforeAll(() => {
-      userService.getAll = jest.fn().mockResolvedValue(usersListResMock);
+      userService.getAll = jest.fn().mockResolvedValue(usersGetAllResMock);
     });
 
     afterAll(() => {
@@ -44,7 +44,7 @@ describe('Users Routes', () => {
 
       expect(res.statusCode).toEqual(200);
       expect(res.body).toBeDefined();
-      expect(res.body).toMatchObject(usersListResMock);
+      expect(res.body).toMatchObject(usersGetAllResMock);
     });
 
     it('should fail when is not given authorization header', async () => {

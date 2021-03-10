@@ -1,8 +1,9 @@
 exports.userSerializer = user => ({
-  id: user.id,
+  id: parseInt(user.id),
   firstName: user.firstName,
   lastName: user.lastName,
   email: user.email,
+  role: user.role ? user.role.name : undefined,
   createdAt: user.createdAt,
   updatedAt: user.updatedAt
 });
