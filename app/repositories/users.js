@@ -21,6 +21,8 @@ const queryBuilder = (attributes, searchOp = 'and') => {
 class UserRepository {
   constructor() {
     this.User = db.User;
+    this.Role = db.Role;
+    this.foreignKeyObjects = [{ model: this.Role, as: 'role' }];
   }
 
   async save(user) {
@@ -36,7 +38,7 @@ class UserRepository {
     const offset = (parseInt(query.page) - 1) * parseInt(query.size) || DEFAULT_OFFSET;
     const limit = parseInt(query.size) || DEFAULT_LIMIT;
     try {
-      return await this.User.findAndCountAll({ offset, limit });
+      return await this.User.findAndCountAll({ offset, limit, include: this.foreignKeyObjects });
     } catch (error) {
       logger.error('Error when was trying to list the users: ', error.message);
       throw errors.databaseError('Unknown error when was trying to list the users');
@@ -45,7 +47,7 @@ class UserRepository {
 
   async getBy(attributes, searchOp = 'or') {
     const instructions = { ...queryBuilder(attributes, searchOp) };
-    const user = await this.User.findOne({ where: instructions });
+    const user = await this.User.findOne({ where: instructions, include: this.foreignKeyObjects });
     return user;
   }
 

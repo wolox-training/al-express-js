@@ -7,8 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       tableName: 'roles',
       freezeTableName: true,
-      timestamps: true,
-      paranoid: true,
+      timestamps: false,
       underscored: true
     }
   );

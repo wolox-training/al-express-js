@@ -27,6 +27,7 @@ exports.usersListResMock = {
       firstName: 'Andrés 1',
       lastName: 'López 1',
       email: 'test1@wolox.co',
+      role: 'ADMIN',
       createdAt: '2021-03-02T01:48:29.471Z',
       updatedAt: '2021-03-02T01:48:29.471Z'
     },
@@ -35,6 +36,7 @@ exports.usersListResMock = {
       firstName: 'Andrés 2',
       lastName: 'López 2',
       email: 'test2@wolox.co',
+      role: 'REGULAR',
       createdAt: '2021-03-02T02:37:47.442Z',
       updatedAt: '2021-03-02T02:37:47.442Z'
     },
@@ -43,6 +45,40 @@ exports.usersListResMock = {
       firstName: 'Andrés 3',
       lastName: 'López 3',
       email: 'test3@wolox.co',
+      role: 'ADMIN',
+      createdAt: '2021-03-02T11:22:20.015Z',
+      updatedAt: '2021-03-02T11:22:20.015Z'
+    }
+  ]
+};
+
+exports.usersGetAllResMock = {
+  count: 3,
+  rows: [
+    {
+      id: 1,
+      firstName: 'Andrés 1',
+      lastName: 'López 1',
+      email: 'test1@wolox.co',
+      role: { id: 1, name: 'ADMIN' },
+      createdAt: '2021-03-02T01:48:29.471Z',
+      updatedAt: '2021-03-02T01:48:29.471Z'
+    },
+    {
+      id: 2,
+      firstName: 'Andrés 2',
+      lastName: 'López 2',
+      email: 'test2@wolox.co',
+      role: { id: 2, name: 'REGULAR' },
+      createdAt: '2021-03-02T02:37:47.442Z',
+      updatedAt: '2021-03-02T02:37:47.442Z'
+    },
+    {
+      id: 3,
+      firstName: 'Andrés 3',
+      lastName: 'López 3',
+      email: 'test3@wolox.co',
+      role: { id: 1, name: 'ADMIN' },
       createdAt: '2021-03-02T11:22:20.015Z',
       updatedAt: '2021-03-02T11:22:20.015Z'
     }
@@ -136,6 +172,7 @@ exports.userGetByIdResponseMock = (email = 'test@wolox.co') => ({
   firstName: 'Andrés',
   lastName: 'López',
   email,
+  role: { id: 1, name: 'ADMIN' },
   password: '$2a$08$pM39BJwsvPO6jtpvetg0XOBsBDtkYfZTY4g/oXz47CQXcmnJJJ7ha',
   createdAt: '2021-03-02T01:31:21.872Z',
   updatedAt: '2021-03-02T01:31:21.872Z',
@@ -150,6 +187,7 @@ exports.userLoginResponseMock = (email = 'test@wolox.co') => ({
   firstName: 'Andrés',
   lastName: 'López',
   email,
+  role: 'ADMIN',
   createdAt: '2021-03-02T01:31:21.872Z',
   updatedAt: '2021-03-02T01:31:21.872Z',
   accessToken: 'a token!'

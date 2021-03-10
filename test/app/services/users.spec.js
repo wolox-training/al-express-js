@@ -6,6 +6,7 @@ const {
   userMockRes,
   userGetByIdResponseMock,
   userLoginResponseMock,
+  usersGetAllResMock,
   usersListResMock
 } = require('../../mocks/users');
 
@@ -80,7 +81,7 @@ describe('Users Service', () => {
   });
 
   it('should get all exiting users', async () => {
-    UserRepository.prototype.getAll = jest.fn().mockResolvedValue(usersListResMock);
+    UserRepository.prototype.getAll = jest.fn().mockResolvedValue(usersGetAllResMock);
     const users = await userService.getAll({});
     expect(users).toEqual(usersListResMock);
   });
