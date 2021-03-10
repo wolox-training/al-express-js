@@ -20,6 +20,10 @@ exports.PASSWORD_SALT = 8;
 exports.DEFAULT_OFFSET = 0;
 exports.DEFAULT_LIMIT = 50;
 
+// ROLES
+exports.ROLE_ID_ADMIN = 1;
+exports.ROLE_ID_REGULAR = 2;
+
 // REGEX
 exports.ALPHANUMERICAL_REGEX = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
 exports.EMAIL_WOLOX_REGEX = new RegExp(`^[A-Za-z0-9._%+-]+(@wolox.(${availableDomains}|))$`);

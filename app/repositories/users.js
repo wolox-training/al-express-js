@@ -45,7 +45,8 @@ class UserRepository {
 
   async getBy(attributes, searchOp = 'or') {
     const instructions = { ...queryBuilder(attributes, searchOp) };
-    return (await this.User.findOne({ where: instructions })).toJSON();
+    const user = await this.User.findOne({ where: instructions });
+    return user;
   }
 
   async existBy(attributes, searchOp = 'or', errIfExists = false) {
