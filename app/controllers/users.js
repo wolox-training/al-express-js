@@ -39,9 +39,19 @@ const getAll = async (req, res, next) => {
   }
 };
 
+const addAlbum = async (req, res, next) => {
+  try {
+    const users = await userService.addAlbum(req);
+    res.status(201).send(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   signUp,
   signUpAdmin,
   login,
-  getAll
+  getAll,
+  addAlbum
 };

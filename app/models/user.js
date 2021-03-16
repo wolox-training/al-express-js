@@ -16,11 +16,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  User.associate = models =>
+  User.associate = models => {
     User.belongsTo(models.Role, {
       as: 'role',
       foreignKey: 'roleId'
     });
+    User.hasMany(models.Album, { as: 'albums' });
+  };
 
   return User;
 };

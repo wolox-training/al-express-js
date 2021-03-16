@@ -22,7 +22,11 @@ class UserRepository {
   constructor() {
     this.User = db.User;
     this.Role = db.Role;
-    this.foreignKeyObjects = [{ model: this.Role, as: 'role' }];
+    this.Album = db.Album;
+    this.foreignKeyObjects = [
+      { model: this.Role, as: 'role' },
+      { model: this.Album, as: 'albums' }
+    ];
   }
 
   async save(user) {
