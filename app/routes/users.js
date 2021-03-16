@@ -12,4 +12,6 @@ router
 
 router.post('/sessions', validateSchema(loginSchema), usersController.login);
 
+router.post('/albums/:id', [validateSchema(tokenSchema), session.verifyToken], usersController.addAlbum);
+
 module.exports = router;
